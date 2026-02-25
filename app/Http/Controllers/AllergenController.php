@@ -11,7 +11,6 @@ class AllergenController extends Controller
     public function index()
     {
         $allergens = Allergen::all();
-        // A bejelentkezett felhasználó már kiválasztott allergéneinek ID-jai
         $userAllergens = Auth::user()->allergens->pluck('id'); 
 
         return response()->json([
