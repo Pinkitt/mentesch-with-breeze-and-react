@@ -35,7 +35,7 @@ class RestaurantController extends Controller
     }
 
     $validated = $request->validate([
-        'name' => 'required|string|max:255|min:5',
+        'name' => 'required|string|max:250|min:5',
         'address' => 'required|string',
         'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB, png/jpg/jpeg     
         //frontenden valami ilyesmit látni: restaurants/abc123xyz.jpg
@@ -43,7 +43,7 @@ class RestaurantController extends Controller
     [
         'name.required' => 'Az étterem nevének megadása kötelező!',
         'name.min' => 'Az étterem nevének legalább 5 karakter hosszúnak kell lennie!',
-        'name.max' => 'Az étterem neve nem lehet hosszabb 255 karakternél!',
+        'name.max' => 'Az étterem neve nem lehet hosszabb 250 karakternél!',
         'address.required' => 'A cím megadása kötelező!',
         'image.max'=> 'A kép maximum 2MB méretű lehet!',
         'image.mimes'=> 'Nem megfelelő képformátum! Támogatott formátumok: png, jpeg, jpeg',
@@ -74,17 +74,17 @@ class RestaurantController extends Controller
     {
         $validated = $request->validate(
             [
-                'name' => 'required|string|max:255|min:5',
+                'name' => 'required|string|max:250|min:5',
                 'address' => 'required|string',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
             ],
             [
                 'name.required' => 'Az étterem nevének megadása kötelező!',
-                'name.min' => 'Az étterem nevének legalább 5 karakter hosszúnak kell lennie!',
-                'name.max' => 'Az étterem neve nem lehet hosszabb 255 karakternél!',
+                'name.min' => 'Az étterem nevének legalább 5 karakter hosszúságúnak kell lennie!',
+                'name.max' => 'Az étterem neve nem lehet hosszabb 250 karakternél!',
                 'address.required' => 'A cím megadása kötelező!',
                 'image.max'=> 'A kép maximum 2MB méretű lehet!',
-                'image.mimes'=> 'Nem megfelelő képformátum! Támogatott formátumok: png, jpeg, jpeg',
+                'image.mimes'=> 'Nem megfelelő képformátum! Támogatott formátumok: png, jpeg, jpg',
             ]
         );
 
@@ -97,7 +97,7 @@ class RestaurantController extends Controller
     {
         if (!Auth::user()->is_admin) {
             return response()->json(['message' => 'Admin jog szükséges!'], 403);
-    }
+        }
 
     $restaurant->delete();
 

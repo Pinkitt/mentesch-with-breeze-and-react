@@ -16,8 +16,8 @@ class ReviewController extends Controller
             'review' => 'required|string|min:5|max:1000',
         ],
         [
-            'review.min'=> 'A véleménynek minimum 5 karakter hosszúnak kell lennie!',
-            'review.max'=>'A vélemény maximum 1000 karakter hosszú lehet!',
+            'review.min' => 'A véleménynek minimum 5 karakter hosszúságúnak kell lennie!',
+            'review.max' => 'A vélemény nem lehet hosszabb 1000 karakternél!',
             'review.required' => 'A vélemény megadása kötelező',
         ]);
 
@@ -45,8 +45,8 @@ class ReviewController extends Controller
         $validated = $request->validate([
             'review' => 'required|string|min:5|max:1000',
         ], [
-            'review.min' => 'A véleménynek minimum 5 karakter hosszúnak kell lennie!',
-            'review.max' => 'A vélemény maximum 1000 karakter hosszú lehet!',
+            'review.min' => 'A véleménynek minimum 5 karakter hosszúságúnak kell lennie!',
+            'review.max' => 'A vélemény nem lehet hosszabb 1000 karakternél!',
             'review.required' => 'A vélemény megadása kötelező',
         ]);
 

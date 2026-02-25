@@ -44,21 +44,21 @@ class AllergenController extends Controller
         $validated = $request->validate(
             [
                 'name' => 'required|string|max:50|min:3',
-                'desc' => 'string|max:255',
+                'desc' => 'string|max:250',
                 'replist'=> 'string|max:300',
             ],
             [
                 'name.required' => 'Az allergén nevének megadása kötelező!',
                 'name.min' => 'Az allergén nevének legalább 3 karakter hosszúnak kell lennie!',
                 'name.max' => 'Az allergén neve nem lehet hosszabb 50 karakternél!',
-                'desc.max' => 'Az allergén leírása maximum 255 karakter lehet!',
-                'replist.max'=> 'Az alternatívalista maximum 300 karakter lehet!',
+                'desc.max' => 'Az allergén leírása nem lehet hosszabb 250 karakternél!',
+                'replist.max'=> 'Az alternatívalista nem lehet hosszabb 300 karakternél!',
             ]
         );
 
         $allergen = Allergen::create($validated);
 
-        return response()->json(['message' => 'Sikeresen létrehozva!', 'data' => $allergen], 201);
+        return response()->json(['message' => 'Allergén sikeresen létrehozva!', 'data' => $allergen], 201);
     }
 
 
@@ -70,18 +70,18 @@ class AllergenController extends Controller
 
     public function update(Request $request, Allergen $allergen)
     {
-         $validated = $request->validate(
+        $validated = $request->validate(
             [
                 'name' => 'required|string|max:50|min:3',
-                'desc' => 'string|max:255',
+                'desc' => 'string|max:250',
                 'replist'=> 'string|max:300',
             ],
             [
                 'name.required' => 'Az allergén nevének megadása kötelező!',
                 'name.min' => 'Az allergén nevének legalább 3 karakter hosszúnak kell lennie!',
                 'name.max' => 'Az allergén neve nem lehet hosszabb 50 karakternél!',
-                'desc.max' => 'Az allergén leírása maximum 255 karakter lehet!',
-                'replist.max'=> 'Az alternatívalista maximum 300 karakter lehet!',
+                'desc.max' => 'Az allergén leírása nem lehet hosszabb 250 karakternél!',
+                'replist.max'=> 'Az alternatívalista nem lehet hosszabb 300 karakternél!',
             ]
         );
 
