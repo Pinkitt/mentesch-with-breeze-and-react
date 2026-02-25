@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('allergens', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable(false);
-            $table->text('desc')->nullable();
-            $table->text('replist')->nullable();
-            $table->timestamps();
-        });
+        Schema::table('restaurants', function (Blueprint $table) {
+        $table->string('image')->nullable()->after('address');
+    });
     }
 
     /**
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('allergens');
+        Schema::table('restaurants', function (Blueprint $table) {
+            //
+        });
     }
 };
