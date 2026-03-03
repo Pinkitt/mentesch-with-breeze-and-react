@@ -87,14 +87,14 @@
       <div>
         <h2 class="text-xl font-semibold text-white">Mentesch</h2>
         <p class="text-sm mt-1">© 2025 Mentesch, Inc. Minden jog fenntartva.</p>
-        <p class="text-sm">Ez az oldal iskolai vizsgamunka részeként készült, nem kereskedelmi célból.</p>
+        <p class="text-sm">Ez az oldal iskolai vizsgamunka részeként készült, nem kereskedelmi célból. Az oldalon megjelenő információk csak demonstráció jellegűek.</p>
+        <p class="text-sm">Készítők: Farkas Vanessza és Pintér Kitti Kíra.</p>
       </div>
       <div class="flex space-x-6">
         @if (Route::has('login'))
         @auth
         <a href="/allergens" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Allergének</a>
         <a href="/restaurantsearch" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Étterem kereső</a>
-        <a href="/about" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Rólunk</a>
         @endauth
         @endif
       </div>
