@@ -11,15 +11,29 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = Restaurant::with('reviews.user')->get();
+        $jsonString = $restaurants->toJson();
+        $restaurants = json_decode($jsonString);
+        //i had too this one too
+        // $restaurants = Restaurant::with('reviews.user')->get();
+        //return response()->json($restaurants);
         
-        return response()->json($restaurants);
+        return view('restaurants', [
+        'restaurants' => $restaurants
+    ]);
     }
 
-    public function show(Restaurant $restaurant)
+    public function show($id)
     {
-        $restaurant->load('reviews.user');
-        
-        return response()->json($restaurant);
+        $restaurant = Restaurant::with('reviews.user')->findOrFail($id);
+        $jsonString = $restaurant->toJson();
+        $restaurant = json_decode($jsonString);
+        //sorry I had too:(
+        //$restaurant->load('reviews.user');
+        //return response()->json($restaurant);
+
+        return view('restaurantdetails', [
+          'restaurant' => $restaurant
+        ]);
     }
 
 

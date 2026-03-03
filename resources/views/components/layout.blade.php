@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amarna:ital,wght@0,100..700;1,100..700&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
   <title>{{$title}}</title>
-  @vite(['resources/css/rotate.css', 'resources/js/rotate.jsx'])
+  @vite(['resources/css/rotate.css', 'resources/js/rotate.jsx','resources/css/commentwall.css'])
 </head>
 
 <body class="flex flex-col min-h-screen text-white">
@@ -23,7 +23,7 @@
               @auth
               <a href="/" aria-current="page" class="rounded-md px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10">Kezdőlap</a>
               <a href="/allergens" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Allergének</a>
-              <a href="/restaurantsearch" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Étterem kereső</a>
+              <a href="/restaurants" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Étterem kereső</a>
               @endauth
               @endif
             </div>
@@ -94,7 +94,7 @@
         @if (Route::has('login'))
         @auth
         <a href="/allergens" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Allergének</a>
-        <a href="/restaurantsearch" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Étterem kereső</a>
+        <a href="/restaurants" class="hover:text-indigo-400 hover:bg-white/5 hover:text-white transition hover:bg-white/10">Étterem kereső</a>
         @endauth
         @endif
       </div>

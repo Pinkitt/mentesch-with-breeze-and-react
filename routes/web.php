@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,8 @@ Route::get('/allergens', function () {
     return view('allergens');
 });
 
-Route::get('/restaurantsearch', function () {
-    return view('restaurantsearch');
-});
+Route::get('/restaurants', [RestaurantController::class, 'index']);
+Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
