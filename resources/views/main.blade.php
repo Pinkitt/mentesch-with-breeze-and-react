@@ -1,4 +1,3 @@
-
 <x-layout>
     <x-slot:title>Kezdőlap</x-slot:title>
     <x-slot:heading>

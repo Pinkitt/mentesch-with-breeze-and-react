@@ -20,6 +20,12 @@ class AllergenController extends Controller
         ]);
     }
 
+    public function getAllergensData()
+    {
+    $allergens = Allergen::all();
+    return response()->json($allergens);
+    }
+
     public function updateMyAllergens(Request $request)
     {
         $request->validate([

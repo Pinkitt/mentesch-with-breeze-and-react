@@ -1,23 +1,13 @@
 <?php
 
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('main');
 });
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-Route::get('/allergens', function () {
-    return view('allergens');
-});
-
-Route::get('/restaurants', [RestaurantController::class, 'index']);
-Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,6 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/allergens', function () {
+    return view('allergens');
+});
+
+Route::get('/api/allergens-data', [AllergenController::class, 'getAllergensData']);
+
+Route::get('/restaurants', [RestaurantController::class, 'index']);
+Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';
