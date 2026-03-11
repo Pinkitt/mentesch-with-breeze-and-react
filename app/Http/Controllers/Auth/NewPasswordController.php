@@ -34,6 +34,13 @@ class NewPasswordController extends Controller
             'token' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],
+        [
+            'token.required'=>'A jelszóváltoztatási token helytelen vagy hiányzik!',
+            'email.required'=>'Az e-mail cím megadása kötelező!',
+            'email.email'=>'Helytelen e-mail formátum! Kérem, valós e-mail címet adjon meg!',
+            'password.required'=>'Az új jelszó megadása kötelező!',
+            'password.confirmed'=>'A két jelszó nem egyezik meg!'
         ]);
 
         // Here we will attempt to reset the user's password. If it is successful we

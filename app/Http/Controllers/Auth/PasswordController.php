@@ -18,6 +18,12 @@ class PasswordController extends Controller
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
+        ],
+        [
+            'current_password.required'=>'A jelenlegi jelszó megadása kötelező!',
+            'current_password.current_password'=>'A jelszó helytelen! Kérem, próbálja újra!',
+            'password.required'=>'Az új jelszó megadása kötelező!',
+            'password.confirmed'=>'Az új jelszavak nem egyeznek! Kérem, próbálja újra!'
         ]);
 
         $request->user()->update([

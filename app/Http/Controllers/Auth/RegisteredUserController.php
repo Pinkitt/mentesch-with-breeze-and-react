@@ -33,6 +33,17 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],
+        [
+            'username.required' => 'A felhasználónév megadása kötelező!' ,
+            'username.max' => 'A felhasználónév legfeljebb 50 karakter hosszúságú lehet!',
+            'email.required'=>'Az e-mail cím megadása kötelező!',
+            'email.lowercase'=>'Az e-mail cím csak karaktereket tartalmazhat',
+            'email.email'=>'Nem megfelelő e-mail formátum! Kérem, valós e-mail címet adjon meg!',
+            'email.max'=>'Az e-mail legfeljebb 50 karakter hosszúságú lehet!',
+            'email.unique'=>'Ez az e-mail cím már foglalt! Kérem, válasszon másikat!',
+            'password.required'=>'A jelszó megadása kötelező',
+            'password.confirmed'=>'A két jelszó nem egyezik meg!    '
         ]);
 
         $user = User::create([

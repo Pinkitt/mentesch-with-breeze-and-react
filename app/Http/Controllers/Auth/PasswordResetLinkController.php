@@ -27,6 +27,10 @@ class PasswordResetLinkController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
+        ],
+        [
+            'email.required' => 'Az e-mail cím megadása kötelező!',
+            'email.email' => 'Kérem, egy valós e-mail címet adjon meg!',
         ]);
 
         // We will send the password reset link to this user. Once we have attempted
