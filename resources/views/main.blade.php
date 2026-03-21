@@ -16,7 +16,7 @@
         </div> 
         </section>
         @push('scripts')
-            @vite(['resources/js/rotate.js','resources/js/colorscheme.js'])
+            @vite(['resources/js/rotate.jsx','resources/js/colorscheme.js'])
         @endpush
         @endauth
     </x-slot:heading>

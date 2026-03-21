@@ -84,7 +84,7 @@
                             </a>
                         @endif
                         <a>
-                          <button id="themeBtn" class="inline-block w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(sun.png)] dark:bg-[url(moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
+                          <button id="themeBtn" class="absolute right-0 ml-auto w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(sun.png)] dark:bg-[url(moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
                         </a>
                     @endauth
                     @endif
