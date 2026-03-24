@@ -8,7 +8,6 @@ use App\Models\User;
 
 class RestaurantApiTest extends TestCase
 {
-    // Ez a sor gondoskodik róla, hogy a tesztek ne szemeteljék tele a fő adatbázisod
     use RefreshDatabase; 
 
     /**
