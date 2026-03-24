@@ -6,7 +6,6 @@
         <div class="header-section">
             <div class="relative py-12 mb-10 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-800 via-teal-700 to-blue-900 shadow-2xl text-5xl text-black dark:text-white">
                 <h1 class="mb-5"><strong>{{ $restaurant->name }}</strong></h1>
-                <p>{{ str_repeat('⭐',5) }}</p>
             </div>
             <p class="text-3xl mb-2 text-black dark:text-white">Cím: {{ $restaurant->address }}</p>
             <p class="text-black dark:text-white">Értékelések száma: {{ count($restaurant->reviews) }}</p>

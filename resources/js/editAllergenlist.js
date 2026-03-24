@@ -1,4 +1,4 @@
-function allergenManager() {
+window.allergenManager = function() {
     return {
         isEditing: false,
         message: '',

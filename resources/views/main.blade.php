@@ -25,7 +25,7 @@
   
             @auth
             <div class="relative py-12 mb-10 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-800 via-teal-700 to-blue-900 shadow-2xl text-black dark:text-white">
-              <h1 class="p-5 text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-md">Mit szeretnél ma csinálni {{ Auth::user()->username }}? :)</h1>
+              <h1 class="p-5 text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-md">Mit szeretnél ma csinálni {{ Auth::user()->username }}? 😊</h1>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full px-4 bg-white text-black dark:bg-zinc-950 dark:text-white">

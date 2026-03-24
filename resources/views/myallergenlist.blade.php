@@ -10,14 +10,14 @@
                 <div class="text-center md:text-left">
                     <h2 class="text-2xl font-semibold  mb-4">Allergénlistád</h2>
 
-                    <div class="bg-white/10 p-4 rounded-md -200 mb-6 flex flex-wrap gap-2 min-h-[60px] items-center">
+                    <div class="bg-white/10 p-4 rounded-md -200 mb-6 flex flex-wrap gap-2 min-h-[60px] items-center bg-zinc-100 dark:bg-zinc-800">
                         <template x-if="originalIds.length > 0">
                             <template x-for="name in getDisplayNames()" :key="name">
                                 <span class="px-3 py-1 bg-red-500/20 border border-red-500/30 text-red-200 rounded-full text-sm" x-text="name"></span>
                             </template>
                         </template>
                         <template x-if="originalIds.length === 0">
-                            <span class="text-sm">Sajnos még nincs listád:(</span>
+                            <span class="text-sm">Sajnos még nincs listád 🥲</span>
                         </template>
                     </div>
 
