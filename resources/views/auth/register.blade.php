@@ -44,7 +44,7 @@
                 {{ __('Már regisztráltál?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button class="ms-4 bg-green-500">
                 {{ __('Regisztráció') }}
             </x-primary-button>
         </div>

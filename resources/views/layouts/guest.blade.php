@@ -15,8 +15,8 @@
         <script src="https://cdn.tailwindcss.com"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/colorscheme.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-green-100">
+    <body class="font-sans antialiased bg-green-100 dark:bg-green-950">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
                 <a href="/">
                     <img src="/logo_ver_2.png" alt="Mentesch logo" class="h-20 w-auto" />

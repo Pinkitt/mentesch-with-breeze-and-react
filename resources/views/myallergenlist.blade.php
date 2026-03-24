@@ -34,7 +34,7 @@
                     <template x-for="(selectedId, index) in selectedIds" :key="index">
                         <div class="flex items-center gap-3">
 
-                            <select x-model.number="selectedIds[index]" class="flex-grow bg-[#1b1b18] border border-gray-600 -200 text-sm rounded-md focus:ring-[#49ab6d] focus:border-[#49ab6d] block w-full p-2.5">
+                            <select x-model.number="selectedIds[index]" class="flex-grow text-black bg-white dark:text-white dark:bg-zinc-950 border border-gray-600 text-sm rounded-md focus:ring-[#49ab6d] focus:border-[#49ab6d] block w-full p-2.5">
                                 <option value="">Válassz allergént!</option>
                                 <template x-for="allergen in allAllergens" :key="allergen.id">
                                     <option :value="allergen.id" x-text="allergen.name"></option>
@@ -68,98 +68,5 @@
                 <p x-show="message" x-text="message" class="mt-4 text-[#49ab6d] font-medium" x-transition></p>
             </div>
         </div>
-
-        <script>
-function allergenManager() {
-    return {
-        isEditing: false,
-        message: '',
-        
-        allAllergens: [],
-        originalIds: [],
-        selectedIds: [],
-
-        initData() {
-            fetch('/api/my-allergens-list', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            }) 
-            .then(response => {
-                if (!response.ok) throw new Error('Hiba a lekérdezésnél: ' + response.status);
-                return response.json();
-            })
-            .then(data => {
-                this.allAllergens = data.all_allergens || [];
-                this.originalIds = data.user_has || [];
-                this.selectedIds = [...this.originalIds];
-            })
-            .catch(error => console.error('Hiba az adatok betöltésekor:', error));
-        },
-
-        startEditing() {
-            this.selectedIds = [...this.originalIds];
-            if (this.selectedIds.length === 0) {
-                this.selectedIds.push('');
-            }
-            this.isEditing = true;
-            this.message = '';
-        },
-
-        cancelEditing() {
-            this.isEditing = false;
-        },
-
-        addRow() {
-            this.selectedIds.push('');
-        },
-
-        removeRow(index) {
-            this.selectedIds.splice(index, 1);
-        },
-
-        getDisplayNames() {
-            return this.originalIds.map(id => {
-                let found = this.allAllergens.find(a => a.id == id);
-                return found ? found.name : '';
-            }).filter(name => name !== '');
-        },
-
-        saveChanges() {
-            let idsToSave = [...new Set(this.selectedIds.filter(id => id !== ''))];
-
-            fetch('/api/my-allergens-update', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ allergen_ids: idsToSave })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Hiba a mentésnél');
-                return response.json();
-            })
-            .then(data => {
-                this.originalIds = [...idsToSave];
-                this.message = data.message || 'Sikeresen mentve!';
-                
-                setTimeout(() => {
-                    this.isEditing = false;
-                    this.message = '';
-                }, 1500);
-            })
-            .catch(error => {
-                console.error('Hiba:', error);
-                this.message = 'Hiba történt a mentés során.';
-            });
-        }
-    }
-}
-</script>
     </x-slot>
 </x-layout>
