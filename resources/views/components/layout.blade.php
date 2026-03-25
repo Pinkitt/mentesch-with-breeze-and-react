@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amarna:ital,wght@0,100..700;1,100..700&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
   <title>{{$title}}</title>
-  @vite(['resources/css/rotate.css', 'resources/js/rotate.jsx','resources/css/commentwall.css','resources/js/colorscheme.js','resources/js/createReview.js','resources/js/getAllergens.js','resources/js/editAllergenlist.js'])
+  @vite(['resources/css/rotate.css', 'resources/js/rotate.jsx','resources/css/commentwall.css','resources/js/colorscheme.js','resources/js/createReview.js','resources/js/editAllergenlist.js','resources/js/getRestaurants.js','resources/js/getAllergens.js'])
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
@@ -32,7 +32,7 @@
         </div>
         <div class="flex items-center justify-end gap-4">
           <a>
-            <button id="themeBtn" class="inline-block w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(sun.png)] dark:bg-[url(moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
+            <button id="themeBtn" class="inline-block w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(/sun.png)] dark:bg-[url(/moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
           </a>
         <div class="relative ml-3" x-data="{ open: false }">
             <div>
@@ -84,7 +84,7 @@
                             </a>
                         @endif
                         <a>
-                          <button id="themeBtn" class="absolute right-0 ml-auto w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(sun.png)] dark:bg-[url(moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
+                          <button id="themeBtn" class="absolute right-0 ml-auto w-10 h-10 flex-shrink-0 transition-all duration-300 focus:outline-none bg-center bg-[url(/sun.png)] dark:bg-[url(/moon.png)] bg-contain bg-no-repeat origin-top-right rounded-full"></button>
                         </a>
                     @endauth
                     @endif

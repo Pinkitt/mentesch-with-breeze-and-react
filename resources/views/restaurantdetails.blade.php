@@ -22,12 +22,12 @@
 
         <div class="comment-wall text-black dark:text-white bg-white dark:bg-zinc-950">
             @foreach ($restaurant->reviews as $review)
-            <div class="comment-card">
+            <div class="comment-card bg-white dark:bg-zinc-950">
                 <div class="comment-header">
                     <span class="user-name">{{ $review->user->username }}</span>
                     <span class="comment-date">{{ \Carbon\Carbon::parse($review->created_at)->format('Y.m.d H:i') }}</span>
                 </div>
-                <div class="comment-body">
+                <div class="comment-body text-black dark:text-white">
                     {{ $review->review }}
                 </div>
             </div>

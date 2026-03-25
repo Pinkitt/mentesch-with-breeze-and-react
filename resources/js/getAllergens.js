@@ -1,7 +1,8 @@
-fetch('/api/allergens-data')
+const container = document.getElementById('allergens-container');
+if(container){
+    fetch('/api/allergens')
             .then(response => response.json())
             .then(data => {
-                const container = document.getElementById('allergens-container');
                 let htmlContent = '';
 
             data.forEach(allergen => { 
@@ -30,7 +31,7 @@ fetch('/api/allergens-data')
                 }
 
                 htmlContent += `
-                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(52,211,153,0.15)] group">
+                    <div class="border border-gray-700 rounded-xl p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(52,211,153,0.15)] group">
             
                     <h3 class="text-2xl font-bold ${textColor} mb-4 ${hoverColor} transition-colors">
                         ${allergen.name}
@@ -54,3 +55,4 @@ fetch('/api/allergens-data')
         container.innerHTML = htmlContent;
     })
     .catch(error => console.error('Hiba történt:', error));
+}

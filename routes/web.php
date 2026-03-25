@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,7 +24,15 @@ Route::get('/myallergenlist', function () {
     return view('myallergenlist');
 });
 
-Route::resource('restaurants',RestaurantController::class);
+Route::get('/restaurants',function(){
+    return view('restaurants');
+});
+
+Route::get('/restaurants/{id}', function ($id) {
+    $restaurant = Restaurant::with('reviews.user')->findOrFail($id);
+    
+    return view('restaurantdetails', ['restaurant' => $restaurant]);
+});
 });
 
 require __DIR__.'/auth.php';
