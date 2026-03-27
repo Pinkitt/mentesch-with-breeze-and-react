@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -47,6 +48,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        Gate::authorize('delete', $user);
 
         Auth::logout();
 

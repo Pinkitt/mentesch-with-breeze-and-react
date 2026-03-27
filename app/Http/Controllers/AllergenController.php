@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Allergen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AllergenController extends Controller
 {
     public function index()
     {
         $allergens = Allergen::all();
+        
         return response()->json($allergens, 200);
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Allergen::class);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100|unique:allergens,name',
         ], [
@@ -31,6 +35,8 @@ class AllergenController extends Controller
 
     public function update(Request $request, Allergen $allergen)
     {
+        Gate::authorize('update', $allergen);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100|unique:allergens,name,' . $allergen->id,
         ], [
@@ -46,7 +52,10 @@ class AllergenController extends Controller
 
     public function destroy(Allergen $allergen)
     {
+        Gate::authorize('delete', $allergen);
+
         $allergen->delete();
+        
         return response()->json(['message' => 'Allergén sikeresen törölve!'], 200);
     }
 

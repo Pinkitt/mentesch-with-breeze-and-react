@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('allergen_id')->constrained('allergens')->cascadeOnDelete();
             $table->timestamps();
+            $table->unique(['user_id', 'allergen_id']); //Egy felhasználó nem tudja felvenni kétszer ugyan azt az allergént
         });
 
     }
