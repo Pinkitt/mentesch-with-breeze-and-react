@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RestaurantController extends Controller
 {
@@ -24,6 +25,8 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Restaurant::class);
+
         $validated = $request->validate([
             'name' => 'required|string|max:250|min:5',
             'address' => 'required|string',
@@ -47,6 +50,8 @@ class RestaurantController extends Controller
 
     public function update(Request $request, Restaurant $restaurant)
     {
+        Gate::authorize('update', $restaurant);
+
         $validated = $request->validate([
             'name' => 'required|string|max:250|min:5',
             'address' => 'required|string',
@@ -67,6 +72,8 @@ class RestaurantController extends Controller
 
     public function destroy(Restaurant $restaurant)
     {
+        Gate::authorize('delete', $restaurant);
+
         $restaurant->delete();
 
         return response()->json(['message' => 'Az étterem sikeresen törölve!'], 200);

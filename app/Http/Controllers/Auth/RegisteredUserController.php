@@ -25,7 +25,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'username' => ['required', 'string', 'max:255'],
@@ -36,11 +36,11 @@ class RegisteredUserController extends Controller
             'username.required' => 'A felhasználónév megadása kötelező!' ,
             'username.max' => 'A felhasználónév legfeljebb 50 karakter hosszúságú lehet!',
             'email.required'=>'Az e-mail cím megadása kötelező!',
-            'email.lowercase'=>'Az e-mail cím csak karaktereket tartalmazhat',
+            'email.lowercase'=>'Az e-mail cím csak karaktereket tartalmazhat!',
             'email.email'=>'Nem megfelelő e-mail formátum! Kérem, valós e-mail címet adjon meg!',
             'email.max'=>'Az e-mail legfeljebb 50 karakter hosszúságú lehet!',
             'email.unique'=>'Ez az e-mail cím már foglalt! Kérem, válasszon másikat!',
-            'password.required'=>'A jelszó megadása kötelező',
+            'password.required'=>'A jelszó megadása kötelező!',
             'password.confirmed'=>'A két jelszó nem egyezik meg!    '
         ]);
 
@@ -54,6 +54,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return response()->json(['message' => 'Sikeres regisztráció!','user' => $user], 201);
     }
 }

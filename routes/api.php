@@ -15,6 +15,7 @@ Route::get('/teszt', function () {
 Route::get('/restaurants', [RestaurantController::class, 'index']);
 Route::get('/restaurants/{restaurant}', [RestaurantController::class, 'show']);
 Route::get('/allergens', [AllergenController::class, 'index']);
+Route::get('/restaurants', [RestaurantController::class, 'index']);
 
 
   //----------------------------------------------//
@@ -30,6 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/reviews/{review}', [ReviewController::class, 'update']);
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
     Route::post('/my-allergens', [AllergenController::class, 'updateMyAllergens']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/restaurants', [RestaurantController::class, 'store']);
+});
 });
 
 
