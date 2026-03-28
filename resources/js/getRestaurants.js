@@ -15,7 +15,9 @@ if (container) {
                     <div class="p-6 flex-grow text-center">
                         ${isAdmin ? `
                             <div class="text-right">
-                                <button class="bg-red-600 text-2xl rounded border border-red-700">🗑️</button>
+                                <button class="p-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/50 rounded-lg transition-all transform active:scale-95 shadow-sm">
+                                    <span class="text-xl">🗑️</span>
+                                </button>
                             </div>
                         ` : ''}
                         <div class="w-16 h-16 bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,14 +30,15 @@ Route::get('/restaurants',function(){
 });
 
 Route::get('/restaurants/{id}', function ($id) {
-    $restaurant = Restaurant::with('reviews.user')->findOrFail($id);
+    $restaurant = Restaurant::with('reviews.user')->withAvg('reviews as average_rating', 'rating')->findOrFail($id);
     
     return view('restaurantdetails', ['restaurant' => $restaurant]);
 });
 });
 
 Route::get('/users', function () {
-    return view('users');
+    $users = User::all();
+    return view('users',['users'=>$users]);
 })->middleware(['auth'])->name('users');
 
 require __DIR__.'/auth.php';
