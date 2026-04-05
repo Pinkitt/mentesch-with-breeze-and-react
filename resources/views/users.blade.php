@@ -6,7 +6,7 @@
             <h1 class="text-5xl md:text-7xl font-extrabold  tracking-tight drop-shadow-md">Felhasználók</h1>
         </div>
         <div class="relative py-12 mb-10">
-            <div class="w-full overflow-x-auto rounded-lg border border-zinc-700 shadow-xl">
+            <div class="w-full overflow-x-auto rounded-lg border border-black/2 dark:border-white/10 shadow-xl">
                 <table class="w-full text-left border-collapse bg-slate-300 dark:bg-zinc-900 text-black dark:text-white">
                     <thead class="bg-emerald-800 text-emerald-50 uppercase text-sm">
                         <tr>
