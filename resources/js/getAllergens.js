@@ -28,12 +28,44 @@ async function fetchAllergens() {
     }
 }
 
+function showStatusMessage(message, type = 'success') {
+    const container = document.getElementById('status-message-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    
+    const bgClass = type === 'success' ? 'bg-emerald-600' : 'bg-red-600';
+    
+    toast.className = `
+        ${bgClass} text-black dark:text-white px-6 py-3 rounded-xl shadow-lg 
+        transition-all duration-500 transform translate-y-[-20px] opacity-0
+        flex items-center justify-between pointer-events-auto
+    `;
+    
+    toast.innerHTML = `
+        <span class="font-medium">${message}</span>
+        <button onclick="this.parentElement.remove()" class="ml-4 hover:scale-110 transition-transform">✕</button>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.remove('translate-y-[-20px]', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+    }, 10);
+
+    setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-20px]', 'opacity-0');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
 window.deleteAllergen = async function(id) {
     if (!confirm('Biztosan törölni szeretnéd ezt az allergént?')) return;
 
     try {
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
-        
         const response = await fetch(`/api/allergens/${id}`, {
             method: 'DELETE',
             headers: {
@@ -45,15 +77,20 @@ window.deleteAllergen = async function(id) {
         });
 
         if (response.ok) {
-            alert('Sikeres törlés!');
-            location.reload();
-        } else if (response.status === 403 || response.status === 401) {
-            alert('Nincs jogosultságod a törléshez (Admin jog szükséges)!');
+            showStatusMessage('Sikeres törlés!', 'success');
+
+            const card = document.getElementById(`allergen-card-${id}`);
+            if (card) {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9) translateY(20px)';
+                setTimeout(() => card.remove(), 500);
+            }
         } else {
-            alert('Hiba történt a törlés során.');
+            showStatusMessage('Hiba történt a törlés során.', 'error');
         }
     } catch (error) {
-        console.error('Hiba:', error);
+        showStatusMessage('Hálózati hiba történt.', 'error');
     }
 };
 
@@ -66,9 +103,10 @@ async function renderAllergens() {
 
     const htmlContent = allergens.map(allergen => {
         const { text: textColor, hover: hoverColor } = getAllergenColors(allergen.name);
+        const cardId = `allergen-card-${allergen.id}`;
 
         return `
-            <div class="bg-gray-200 dark:bg-zinc-900 border border-black/2 dark:border-white/10 rounded-xl p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(52,211,153,0.15)] group">
+            <div id="${cardId}" class="bg-gray-200 dark:bg-zinc-900 border border-black/2 dark:border-white/10 rounded-xl p-6 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(52,211,153,0.15)] group">
             
             ${isAdmin ? `
             <div class="text-right">

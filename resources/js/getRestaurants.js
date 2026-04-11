@@ -53,6 +53,40 @@ function createRestaurantCard(restaurant, isAdmin) {
     `;
 }
 
+function showStatusMessage(message, type = 'success') {
+    const container = document.getElementById('status-message-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    
+    const bgClass = type === 'success' ? 'bg-emerald-600' : 'bg-red-600';
+    
+    toast.className = `
+        ${bgClass} text-black dark:text-white px-6 py-3 rounded-xl shadow-lg 
+        transition-all duration-500 transform translate-y-[-20px] opacity-0
+        flex items-center justify-between pointer-events-auto
+    `;
+    
+    toast.innerHTML = `
+        <span class="font-medium">${message}</span>
+        <button onclick="this.parentElement.remove()" class="ml-4 hover:scale-110 transition-transform">✕</button>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.remove('translate-y-[-20px]', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+    }, 10);
+
+    setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-20px]', 'opacity-0');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+
 async function handleSearch() {
     const searchInput = document.getElementById('search');
     const container = document.getElementById('restaurantsContainer');
@@ -76,7 +110,7 @@ async function handleSearch() {
 
     } catch (error) {
         console.error('Hiba történt az éttermek lekérésekor:', error);
-        container.innerHTML = '<p class="text-center text-red-500 mt-4">Hiba történt az adatok betöltése során. Kérjük, próbálja újra később!</p>';
+        showStatusMessage('Hiba történt az adatok betöltése során. Kérjük, próbálja újra később!','error');
     }
 }
 
@@ -96,6 +130,8 @@ window.deleteRestaurant = async function(id) {
         });
 
         if (response.ok) {
+            showStatusMessage('Étterem sikeresen törölve!', 'success');
+            
             const card = document.getElementById(`restaurant-card-${id}`);
             if (card) {
                 card.style.opacity = '0';
@@ -104,10 +140,11 @@ window.deleteRestaurant = async function(id) {
             }
         } else {
             const errorData = await response.json();
-            alert('Hiba: ' + (errorData.message || 'Nem sikerült a törlés.'));
+            console.error('Hiba: ' + (errorData.message || 'Nem sikerült a törlés.'));
+            showStatusMessage('Nem sikerült a törlés!','error');
         }
     } catch (error) {
         console.error('Hiba a törlés során:', error);
-        alert('Hálózati hiba történt a törléskor.');
+        showStatusMessage('Hálózati hiba történt a törléskor!','error');
     }
 };
