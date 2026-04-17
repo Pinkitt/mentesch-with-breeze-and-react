@@ -15,7 +15,7 @@
 </head>
 
 <body class="flex flex-col min-h-screen m-0 p-0">
-  <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#49ab6d]/60 border-b border-white/10 text-black dark:text-white">
+  <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#49ab6d]/70 border border-white/10 text-black dark:text-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             
@@ -159,9 +159,9 @@
       <div class="flex space-x-6">
         @if (Route::has('login'))
         @auth
-        <a href="/allergens" class="hover:text-indigo-400 hover:bg-white/5 hover: transition hover:bg-white/10">Allergének</a>
-        <a href="/restaurants" class="hover:text-indigo-400 hover:bg-white/5 hover: transition hover:bg-white/10">Étterem kereső</a>
-        <a href="/myallergenlist" class="hover:text-indigo-400 hover:bg-white/5 hover: transition hover:bg-white/10">Allergénlistám</a>
+        <a href="/allergens" class="hover:text-emerald-400 hover:bg-white/5 hover: transition hover:bg-white/10">Allergének</a>
+        <a href="/restaurants" class="hover:text-emerald-400 hover:bg-white/5 hover: transition hover:bg-white/10">Étterem kereső</a>
+        <a href="/myallergenlist" class="hover:text-emerald-400 hover:bg-white/5 hover: transition hover:bg-white/10">Allergénlistám</a>
         @endauth
         @endif
       </div>

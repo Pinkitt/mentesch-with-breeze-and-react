@@ -17,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/colorscheme.js','resources/js/toggleMobileMenu.js'])
     </head>
     <body class="font-sans antialiased">
-        <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#49ab6d]/60 border-b border-white/10">
+        <nav class="sticky top-0 z-50 backdrop-blur-md bg-[#49ab6d]/70 border-b border-white/10">
                 <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                   <div class="relative flex h-16 items-center justify-between">
                     <div class="flex items-center">

@@ -1,7 +1,6 @@
 async function fetchRestaurants() {
     const response = await fetch('/api/restaurants');
     if (!response.ok) {
-        console.log(response);
         throw new Error(`Hálózati hiba történt: ${response.status}`);
     }
     const responseData = await response.json();
@@ -114,6 +113,8 @@ async function handleSearch() {
         showStatusMessage('Hiba történt az adatok betöltése során. Kérjük, próbálja újra később!','error');
     }
 }
+
+window.onload = handleSearch;
 
 window.searchRestaurant = handleSearch;
 
