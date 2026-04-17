@@ -108,7 +108,7 @@
                 
                 <hr class="border-white/20 my-2">
                 
-                <div class="px-3 py-2 text-sm font-bold opacity-70">Bejelentkezve mint: {{ Auth::user()->username }}</div>
+                <div class="px-3 py-2 text-sm font-bold opacity-70 uppercase">Bejelentkezve mint: {{ Auth::user()->username }}</div>
                 <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-3 text-base font-medium hover:bg-white/10 transition">Profil szerkesztése</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
