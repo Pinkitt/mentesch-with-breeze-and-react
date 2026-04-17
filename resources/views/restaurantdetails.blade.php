@@ -62,11 +62,13 @@
                     <span class="inline-flex text-gray-300 text-2xl space-x-0.5">{{ str_repeat($star,5-$review->rating) }}</span>
                     @endif
                 </div>
-
                 @if(Auth::check() && (Auth::user()->is_admin || Auth::user()->id == $review->user_id))
-                    <div class="text-right">
+                    <div class="flex justify-between items-center">
                         <button class="p-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/50 rounded-lg transition-all transform active:scale-95 shadow-sm">
                             <span class="text-xl">🗑️</span>
+                        </button>
+                        <button class="p-2 bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white border border-green-500/50 rounded-lg transition-all transform active:scale-95 shadow-sm">
+                            <span class="text-xl">✏️</span>
                         </button>
                     </div>
                 @endif
