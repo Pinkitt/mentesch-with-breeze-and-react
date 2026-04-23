@@ -7,7 +7,7 @@
             <div class="relative py-12 mb-10 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-800 via-teal-700 to-blue-900 shadow-2xl text-5xl text-black dark:text-white">
                 <h1 class="mb-5"><strong>{{ $restaurant->name }}</strong></h1>
             </div>
-            <p class="text-3xl mb-2 text-black dark:text-white">Cím: {{ $restaurant->address }}</p>
+            <p class="text-3xl mb-2 text-black dark:text-white mt-4">Cím: {{ $restaurant->address }}</p>
             <span>
             <span class="text-black dark:text-white">{{ number_format($restaurant->average_rating,1) }}</span>
             @for($i=1;$i<=5;++$i)
@@ -28,6 +28,15 @@
             <span class="text-slate-600">({{ count($restaurant->reviews) }} vélemény)</span>
             </span>
             
+        </div>
+        <div class="mt-4">
+            @foreach ($restaurant->allergens as $allergen)
+            @if(auth()->user()->allergens->contains('id', $allergen->id))
+            <span class="bg-red-900/20 text-red-400 border-red-500/30 px-2 py-1 text-xl font-medium rounded-full transition-colors border">{{ $allergen->name }}</span>
+            @else
+                <span class="bg-emerald-900/20 text-emerald-400 border-emerald-500/30 px-2 py-1 text-xl font-medium rounded-full transition-colors border">{{ $allergen->name }}</span>
+            @endif
+            @endforeach
         </div>
 
         <div class="button-wrapper">

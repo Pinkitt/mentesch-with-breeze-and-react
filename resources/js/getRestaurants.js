@@ -1,10 +1,10 @@
-async function fetchRestaurants() {
-    const response = await fetch('/api/restaurants');
+async function fetchRestaurants(url = '/api/restaurants') {
+    const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Hálózati hiba történt: ${response.status}`);
     }
     const responseData = await response.json();
-    return responseData.data;
+    return responseData;
 }
 
 function filterRestaurants(restaurants, searchWord) {
@@ -34,6 +34,36 @@ function createRestaurantCard(restaurant, isAdmin) {
     ` : '';
 
     const reviewCount = restaurant.reviews ? restaurant.reviews.length : 0;
+    let allergensHtml = '';
+    if (restaurant.allergens && restaurant.allergens.length > 0) {
+        const userAllergenIds = window.userAllergens.map(id => Number(id));
+
+        const sortedAllergens = [...restaurant.allergens].sort((a, b) => {
+            const aMatch = userAllergenIds.includes(Number(a.id)) ? 1 : 0;
+            const bMatch = userAllergenIds.includes(Number(b.id)) ? 1 : 0;
+            return bMatch - aMatch; 
+        });
+
+        allergensHtml = `
+            <div class="flex flex-wrap justify-center gap-2 mt-4">
+                ${sortedAllergens.map(allergen => {
+                    const isMatched = userAllergenIds.includes(Number(allergen.id)); 
+                    
+                    const bgClass = isMatched ? 'bg-red-900/60' : 'bg-emerald-900/20';
+                    const textClass = isMatched ? 'text-red-200' : 'text-emerald-400';
+                    const borderClass = isMatched ? 'border-red-500' : 'border-emerald-500/30';
+                    const fontWeight = isMatched ? 'font-black' : 'font-medium';
+
+                    return `
+                        <span class="px-2 py-1 text-xs ${fontWeight} ${bgClass} ${textClass} border ${borderClass} rounded-full transition-all">
+                            ${allergen.name}
+                        </span>
+                    `;
+                }).join('')}
+            </div>
+        `;
+        
+    }
 
     return `
         <div id="${cardId}" class="group bg-gray-400 dark:bg-[#24221f] border border-black/2 dark:border-white/10 rounded-2xl overflow-hidden shadow-lg hover:-translate-y-2 hover:border-emerald-500/50 hover:shadow-emerald-900/20 transition-all duration-300 flex flex-col relative">
@@ -45,10 +75,11 @@ function createRestaurantCard(restaurant, isAdmin) {
                 <h3 class="text-2xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">
                     ${restaurant.name}
                 </h3>
-                <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="flex items-center justify-center gap-2 pb-3 mb-auto border-b border-gray-700/50 mb-4">
                     <span class="text-emerald-500">📝</span>
                     <span>${reviewCount} vélemény</span>
                 </div>
+                ${allergensHtml}
             </div>
             <div class="p-4 bg-gray-500 dark:bg-[#1c1a17] border-t border-[#3b3834]">
                 <a href="/restaurants/${restaurant.id}" class="block w-full text-center py-3 rounded-xl bg-transparent border border-emerald-500/30 text-emerald-400 font-semibold hover:bg-emerald-500 hover:text-black transition-all duration-300">
@@ -59,34 +90,79 @@ function createRestaurantCard(restaurant, isAdmin) {
     `;
 }
 
+function renderPagination(restaurants){
+    const pagination = document.getElementById('pagination-links');
+    pagination.innerHTML = '';
 
-async function handleSearch() {
+    restaurants.links.forEach(restaurant => {
+        const button = document.createElement('button');
+        button.disabled = !restaurant.url || restaurant.active;
+
+        button.classList = "px-3 py-1 m-1 rounded border text-black dark:text-white bg-emerald-500";
+        let label = restaurant.label;
+        if (label.includes('Previous')) {
+            label = '« Előző';
+        } else if (label.includes('Next')) {
+            label = 'Következő »';
+        }
+
+        button.innerHTML = label;
+
+        if(restaurant.active){
+            button.style.fontWeight = 'bold';
+        }
+
+        button.addEventListener('click',()=>{
+            if(restaurant.url){
+                handleSearch(restaurant.url);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        });
+        pagination.appendChild(button);
+    });
+}
+
+
+async function handleSearch(url = '/api/restaurants') {
+    if (url instanceof Event || typeof url !== 'string') {
+        url = '/api/restaurants';
+    }
+
     const searchInput = document.getElementById('search');
     const container = document.getElementById('restaurantsContainer');
 
     if (!container || !searchInput) return;
 
-    const searchWord = searchInput.value;
+    const searchWord = searchInput ? searchInput.value : '';
     const isAdmin = container.getAttribute('data-is-admin') === 'true';
 
     try {
-        const allRestaurants = await fetchRestaurants();
-        const filteredRestaurants = filterRestaurants(allRestaurants, searchWord);
+        const allRestaurants = await fetchRestaurants(url);
+        const filteredRestaurants = filterRestaurants(allRestaurants.data, searchWord);
         if (filteredRestaurants.length === 0) {
             container.innerHTML = '<p class="text-center text-gray-400 mt-4">Nincs a keresésnek megfelelő étterem 🥲...</p>';
+            document.getElementById('pagination-links').innerHTML = '';
             return;
         }
+        const userAllergenIds = window.userAllergens.map(id => Number(id));
+
+        filteredRestaurants.sort((a, b) => {
+            const aHasMatch = a.allergens.some(allg => userAllergenIds.includes(Number(allg.id))) ? 1 : 0;
+            const bHasMatch = b.allergens.some(allg => userAllergenIds.includes(Number(allg.id))) ? 1 : 0;
+
+            return bHasMatch - aHasMatch;
+        });
 
              container.innerHTML = filteredRestaurants
             .map(restaurant => createRestaurantCard(restaurant, isAdmin))
             .join('');
+            renderPagination(allRestaurants);
 
     } catch (error) {
         console.error('Hiba történt az éttermek lekérésekor:', error);
-        showStatusMessage('Hiba történt az adatok betöltése során. Kérjük, próbálja újra később!','error');
     }
 }
 
-window.onload = handleSearch;
+window.onload = () => handleSearch();
 
 window.searchRestaurant = handleSearch;
