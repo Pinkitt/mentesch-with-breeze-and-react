@@ -179,8 +179,10 @@
             <p class="text-zinc-500 dark:text-zinc-400 mb-6 text-sm leading-relaxed">Ez a művelet nem vonható vissza. Az étterem és a hozzá tartozó értékelések véglegesen törlődnek.</p>
             @elseif(request()->is('restaurants/*'))
             <p class="text-zinc-500 dark:text-zinc-400 mb-6 text-sm leading-relaxed">Ez a művelet nem vonható vissza. Az értékelés véglegesen törlődik.</p>
-            @else
+            @elseif(request()->is('allergens'))
             <p class="text-zinc-500 dark:text-zinc-400 mb-6 text-sm leading-relaxed">Ez a művelet nem vonható vissza. Az allergén véglegesen törlődik.</p>
+            @else
+            <p class="text-zinc-500 dark:text-zinc-400 mb-6 text-sm leading-relaxed">Ez a művelet nem vonható vissza. A felhasználó véglegesen törlődik.</p>
             @endif
             
             <div class="flex gap-3 mt-4">
